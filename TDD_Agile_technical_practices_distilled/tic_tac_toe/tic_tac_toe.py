@@ -6,11 +6,13 @@ class PositionAlreadyPlayed(Exception):
 
 
 def set_position(turn, board):
-    position = int(input('Player {} turn, please insert position'.format(turn)))
+    position = int(input('Player {} turn,'
+                         ' please insert position'.format(turn)))
     if board[position] == " ":
         board[position] = turn
     else:
-        raise PositionAlreadyPlayed("Position already played, please use another position")
+        raise PositionAlreadyPlayed('Position already played,'
+                                    ' please use another position')
 
 
 def check_score(turn, board):
