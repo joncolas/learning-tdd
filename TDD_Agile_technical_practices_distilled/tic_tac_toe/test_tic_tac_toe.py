@@ -44,10 +44,9 @@ def test_when_player_x_gets_tic_tac_toe_wins(caplog):
         return input_values.pop(0)
 
     tic_tac_toe.input = mock_input
-    with pytest.raises(SystemExit) as exc:
+    with pytest.raises(SystemExit):
         tic_tac_toe.main()
         assert 'Player X wins' in caplog.text
-        assert exc.value.code == 0
 
 
 def test_when_player_o_gets_tic_tac_toe_wins(caplog):
@@ -57,7 +56,19 @@ def test_when_player_o_gets_tic_tac_toe_wins(caplog):
         return input_values.pop(0)
 
     tic_tac_toe.input = mock_input
-    with pytest.raises(SystemExit) as exc:
+    with pytest.raises(SystemExit):
         tic_tac_toe.main()
         assert 'Player O wins' in caplog.text
-        assert exc.value.code == 0
+
+
+def test_when_all_nine_quarters_are_filled_the_game_is_a_draw(capsys):
+    input_values = [1, 2, 5, 3, 6, 4, 7, 9, 8]
+
+    def mock_input(s):
+        return input_values.pop(0)
+
+    tic_tac_toe.input = mock_input
+    tic_tac_toe.main()
+    out, err = capsys.readouterr()
+
+    assert 'DRAW' in out
